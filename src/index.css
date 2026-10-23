@@ -1,0 +1,807 @@
+/* ==========================================================================
+   SPINDLE — VINYL LISTENING ROOM DESIGN SYSTEM
+   Palette & Tokens from vinyl-app-spec.md Section 6 & 3D Turntable Engine
+   ========================================================================== */
+
+:root {
+  /* Darker, richer opaque palette requested by user */
+  --plinth: #0A0C0E;   /* Deep obsidian charcoal room ground (no see-through) */
+  --felt: #1A332B;     /* Deep slipmat forest green */
+  --lacquer: #050608;  /* True pitch black virgin vinyl */
+  --brass: #C8A25A;    /* Tonearm, precision mechanical accents */
+  --sleeve: #F0ECE1;   /* Raw textured paper typography on dark */
+  --accent: #C8A25A;   /* Dynamic dominant album art hue */
+
+  /* Solid opaque dark surfaces (zero see-through) */
+  --bg-turntable: #0E1216;
+  --bg-surface: #12161B;
+  --bg-surface-elevated: #181D24;
+  --bg-header: #080A0D;
+  --border-subtle: #1C232B;
+  --border-active: #C8A25A;
+  --text-muted: #8E99A4;
+  --text-faint: #55606D;
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* 3D Vinyl dimensions */
+  --turntable-size: 380px;
+  --record-size: 320px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --turntable-size: 290px;
+    --record-size: 250px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--plinth);
+  color: var(--sleeve);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--plinth);
+}
+
+/* Typography styles */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   3D TURNTABLE CONFIGURATION & HARDWARE CHASSIS
+   -------------------------------------------------------------------------- */
+
+.turntable-stage-3d {
+  perspective: 1200px;
+  perspective-origin: 50% 45%;
+  transform-style: preserve-3d;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 30px;
+}
+
+/* 3D Plinth angled chassis with physical depth & isolation feet */
+.turntable-plinth-3d {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1.15 / 1;
+  background: linear-gradient(165deg, #13171C 0%, #0A0D10 100%);
+  border-radius: 20px;
+  border: 1px solid #232B34;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.95),
+    0 15px 30px rgba(0, 0, 0, 0.85),
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+/* 3D perspective tilted state */
+.turntable-view-3d {
+  transform: rotateX(24deg) rotateZ(-1deg);
+}
+
+/* Top-down flat view state */
+.turntable-view-flat {
+  transform: rotateX(0deg) rotateZ(0deg);
+}
+
+/* Solid Plinth 3D Front Thickness (Simulates heavy wooden/anodized base) */
+.turntable-plinth-3d::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -14px;
+  height: 22px;
+  background: linear-gradient(180deg, #090B0D 0%, #030405 100%);
+  border-radius: 0 0 16px 16px;
+  border: 1px solid #1A2027;
+  border-top: none;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.9);
+  z-index: -1;
+}
+
+/* 4 Isolation Damping Feet at the corners */
+.turntable-foot {
+  position: absolute;
+  width: 28px;
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #C8A25A 0%, #443213 100%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.9);
+  z-index: -2;
+}
+.turntable-foot-tl { top: -6px; left: 16px; }
+.turntable-foot-tr { top: -6px; right: 16px; }
+.turntable-foot-bl { bottom: -18px; left: 16px; }
+.turntable-foot-br { bottom: -18px; right: 16px; }
+
+/* 3D Elevated Platter with Felt Slipmat */
+.turntable-platter-3d {
+  position: relative;
+  width: var(--turntable-size);
+  height: var(--turntable-size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 45%, var(--felt) 0%, #0F1E19 75%, #08110D 100%);
+  transform-style: preserve-3d;
+  transform: translateZ(14px);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.95),
+    0 0 0 6px #080B0E,
+    0 0 0 9px #232B34,
+    0 0 0 11px rgba(200, 162, 90, 0.3),
+    inset 0 0 20px rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D Platter Cast Aluminum Cylinder Depth */
+.turntable-platter-3d::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #323C47 0%, #0A0D10 100%);
+  transform: translateZ(-8px);
+  z-index: -1;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.9);
+}
+
+/* --------------------------------------------------------------------------
+   VINYL DISC (True 3D Pitch Black with Microgrooves & Specular Sheen)
+   -------------------------------------------------------------------------- */
+
+.vinyl-disc {
+  position: relative;
+  width: var(--record-size);
+  height: var(--record-size);
+  border-radius: 50%;
+  background: 
+    /* Dynamic specular sheen */
+    conic-gradient(
+      from 25deg,
+      rgba(255, 255, 255, 0.16) 0deg,
+      transparent 35deg,
+      rgba(255, 255, 255, 0.09) 75deg,
+      transparent 110deg,
+      rgba(255, 255, 255, 0.18) 180deg,
+      transparent 215deg,
+      rgba(255, 255, 255, 0.09) 255deg,
+      transparent 290deg,
+      rgba(255, 255, 255, 0.16) 360deg
+    ),
+    /* Deep microgrooves */
+    repeating-radial-gradient(
+      circle at center,
+      #050608 0px,
+      #101216 1.5px,
+      #050608 3px,
+      #020203 4.5px
+    );
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.9),
+    0 4px 10px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 25px rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  will-change: transform;
+  transform: translateZ(5px);
+}
+
+.vinyl-disc::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+/* Center vinyl label */
+.vinyl-label {
+  position: relative;
+  width: 36%;
+  height: 36%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 
+    0 0 0 3px #050608,
+    0 0 12px rgba(0, 0, 0, 0.7),
+    inset 0 0 10px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #050608;
+  border: 2px solid var(--accent);
+  transition: border-color 0.6s ease;
+}
+
+.vinyl-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vinyl-spindle-hole {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E5C77A 0%, #8C6D32 60%, #1A1305 100%);
+  border: 2px solid #050608;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  z-index: 5;
+}
+
+/* 33⅓ RPM Spin Animation */
+@keyframes spin-33rpm {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning {
+  animation: spin-33rpm 1.8s linear infinite;
+}
+
+.spinning-paused {
+  animation: spin-33rpm 1.8s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Mini vinyl in track list */
+.mini-vinyl {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: 
+    conic-gradient(
+      from 0deg,
+      rgba(255, 255, 255, 0.18) 0deg,
+      transparent 60deg,
+      rgba(255, 255, 255, 0.18) 180deg,
+      transparent 240deg,
+      rgba(255, 255, 255, 0.18) 360deg
+    ),
+    radial-gradient(circle, #21252C 0%, #050608 75%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.mini-vinyl-label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  transition: background-color 0.5s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-vinyl-label::after {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #050608;
+}
+
+/* --------------------------------------------------------------------------
+   3D TONEARM ASSEMBLY
+   -------------------------------------------------------------------------- */
+
+.tonearm-assembly-3d {
+  position: absolute;
+  top: 14px;
+  right: 24px;
+  width: 70px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 25;
+  transform-style: preserve-3d;
+  transform: translateZ(28px);
+}
+
+.tonearm-base {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #E5C77A 0%, #9C772F 65%, #3B280B 100%);
+  border: 2px solid #090B0D;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.8),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.tonearm-counterweight {
+  position: absolute;
+  top: -15px;
+  right: 17px;
+  width: 36px;
+  height: 20px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #B59348 0%, #5C4113 100%);
+  border: 1px solid #291D09;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.tonearm-rod {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  width: 7px;
+  height: 245px;
+  background: linear-gradient(90deg, #F3E6C4 0%, #C8A25A 50%, #5E471C 100%);
+  border-radius: 4px;
+  transform-origin: 3px 0px;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: -6px 10px 18px rgba(0, 0, 0, 0.7);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.tonearm-rod:active {
+  cursor: grabbing;
+}
+
+.tonearm-headshell {
+  position: absolute;
+  bottom: -4px;
+  left: -10px;
+  width: 26px;
+  height: 40px;
+  background: linear-gradient(180deg, #181E24 0%, #080A0D 100%);
+  border: 1px solid rgba(200, 162, 90, 0.6);
+  border-radius: 3px 3px 6px 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  transform: rotate(-14deg);
+}
+
+.tonearm-stylus {
+  position: absolute;
+  bottom: 2px;
+  left: 11px;
+  width: 3px;
+  height: 6px;
+  background-color: var(--brass);
+  box-shadow: 0 0 6px rgba(200, 162, 90, 0.9);
+}
+
+/* --------------------------------------------------------------------------
+   SOLID OPAQUE CRATE SLEEVE DESIGN (Zero See-Through)
+   -------------------------------------------------------------------------- */
+
+.crate-sleeve-wrapper {
+  position: relative;
+  perspective: 1000px;
+}
+
+.crate-peeking-disc {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 86%;
+  height: 86%;
+  border-radius: 50%;
+  background: 
+    conic-gradient(from 0deg, rgba(255,255,255,0.08) 0deg, transparent 90deg, rgba(255,255,255,0.08) 180deg, transparent 270deg, rgba(255,255,255,0.08) 360deg),
+    repeating-radial-gradient(circle at center, #050608 0px, #12151B 2px, #050608 4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.crate-sleeve-wrapper:hover .crate-peeking-disc {
+  transform: translateX(-50%) translateY(-30px);
+}
+
+.crate-sleeve {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #0E1216; /* Solid opaque ground */
+  box-shadow: 
+    0 12px 28px rgba(0, 0, 0, 0.7),
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px #222B34;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s ease;
+  cursor: pointer;
+}
+
+.crate-sleeve::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(90deg, rgba(240, 236, 225, 0.35) 0%, rgba(240, 236, 225, 0.08) 100%);
+  z-index: 3;
+}
+
+.crate-sleeve::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.crate-sleeve:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 20px 42px rgba(0, 0, 0, 0.85),
+    0 4px 8px rgba(200, 162, 90, 0.3),
+    inset 0 0 0 1px var(--brass);
+}
+
+/* --------------------------------------------------------------------------
+   SOLID UTILITY CLASSES (Zero Transparency / No See-Through)
+   -------------------------------------------------------------------------- */
+
+.bg-solid-base { background-color: #0A0C0E; }
+.bg-solid-card { background-color: #0E1216; }
+.bg-solid-elevated { background-color: #141920; }
+.bg-solid-header { background-color: #07090C; }
+
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.items-baseline { align-items: baseline; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.justify-around { justify-content: space-around; }
+.flex-1 { flex: 1 1 0%; }
+.shrink-0 { flex-shrink: 0; }
+
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 640px) {
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sm\:flex-row { flex-direction: row; }
+  .sm\:items-end { align-items: flex-end; }
+  .sm\:block { display: block; }
+  .sm\:inline { display: inline; }
+  .sm\:max-w-sm { max-width: 24rem; }
+  .sm\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+  .sm\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+  .sm\:text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+  .sm\:px-8 { padding-left: 2rem; padding-right: 2rem; }
+  .sm\:gap-8 { gap: 2rem; }
+}
+@media (min-width: 768px) {
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .md\:flex { display: flex; }
+}
+@media (min-width: 1024px) {
+  .lg\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+.gap-1 { gap: 0.25rem; }
+.gap-1\.5 { gap: 0.375rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-2\.5 { gap: 0.625rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+.w-full { width: 100%; }
+.w-4 { width: 1rem; } .h-4 { height: 1rem; }
+.w-5 { width: 1.25rem; } .h-5 { height: 1.25rem; }
+.w-6 { width: 1.5rem; } .h-6 { height: 1.5rem; }
+.w-7 { width: 1.75rem; } .h-7 { height: 1.75rem; }
+.w-8 { width: 2rem; } .h-8 { height: 2rem; }
+.w-9 { width: 2.25rem; } .h-9 { height: 2.25rem; }
+.w-12 { width: 3rem; } .h-12 { height: 3rem; }
+.w-14 { width: 3.5rem; } .h-14 { height: 3.5rem; }
+.min-h-screen { min-height: 100vh; }
+.max-w-xs { max-width: 20rem; }
+.max-w-md { max-width: 28rem; }
+.max-w-xl { max-width: 36rem; }
+.max-w-4xl { max-width: 56rem; }
+.max-w-7xl { max-width: 80rem; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.p-0\.5 { padding: 0.125rem; }
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-2\.5 { padding: 0.625rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+.pt-4 { padding-top: 1rem; }
+.pt-6 { padding-top: 1.5rem; }
+.pb-4 { padding-bottom: 1rem; }
+.pb-12 { padding-bottom: 3rem; }
+
+.mt-0\.5 { margin-top: 0.125rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3\.5 { margin-top: 0.875rem; }
+.mt-4 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+
+.rounded-md { border-radius: 0.375rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+
+.border { border-width: 1px; border-style: solid; }
+.border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+.border-t { border-top-width: 1px; border-top-style: solid; }
+.border-dashed { border-style: dashed; }
+.border-transparent { border-color: transparent; }
+
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+.inset-0 { inset: 0; }
+.top-0 { top: 0; }
+.top-2 { top: 0.5rem; }
+.top-4 { top: 1rem; }
+.top-6 { top: 1.5rem; }
+.top-1\/2 { top: 50%; }
+.bottom-2 { bottom: 0.5rem; }
+.bottom-4 { bottom: 1rem; }
+.left-1 { left: 0.25rem; }
+.left-2 { left: 0.5rem; }
+.left-3 { left: 0.75rem; }
+.left-4 { left: 1rem; }
+.left-6 { left: 1.5rem; }
+.left-1\/2 { left: 50%; }
+.right-1 { right: 0.25rem; }
+.right-2 { right: 0.5rem; }
+.right-2\.5 { right: 0.625rem; }
+.right-4 { right: 1rem; }
+.right-8 { right: 2rem; }
+.-translate-y-1\/2 { transform: translateY(-50%); }
+.-translate-x-1\/2 { transform: translateX(-50%); }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.uppercase { text-transform: uppercase; }
+.capitalize { text-transform: capitalize; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-base { font-size: 1rem; line-height: 1.5rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+
+.cursor-pointer { cursor: pointer; }
+.select-none { user-select: none; }
+.overflow-hidden { overflow: hidden; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4); }
+.shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6); }
+.shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); }
+
+/* Buttons & Inputs */
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #1C232B;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0C0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232B34;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brass);
+}
+
+/* --------------------------------------------------------------------------
+   MODAL DIALOG (100% Solid Opaque Obsidian Background - Zero Transparency)
+   -------------------------------------------------------------------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(2, 3, 5, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.modal-content-card {
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  background-color: #0E1217 !important;
+  border: 1px solid #232B34;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.98), 0 0 0 1px rgba(200, 162, 90, 0.2);
+  color: #F0ECE1;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-input {
+  width: 100%;
+  background-color: #080A0D !important;
+  border: 1px solid #232B34 !important;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  color: #F0ECE1 !important;
+  font-size: 0.8125rem;
+  outline: none;
+}
+
+.modal-input:focus {
+  border-color: #C8A25A !important;
+  box-shadow: 0 0 0 1px #C8A25A;
+}
+
+.btn-spotify {
+  background-color: #1DB954 !important;
+  color: #000000 !important;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  width: 100%;
+}
+.btn-spotify:hover {
+  background-color: #1ed760 !important;
+  transform: translateY(-1px);
+}
+
+.btn-apple {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  width: 100%;
+}
+.btn-apple:hover {
+  background-color: #F0F0F0 !important;
+  transform: translateY(-1px);
+}
+
