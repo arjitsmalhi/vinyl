@@ -24,7 +24,7 @@ export interface Collection {
   uri?: string;
 }
 
-export type RoomTheme = 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight';
+export type RoomTheme = 'dark' | 'light' | 'dynamic' | 'amber' | 'ivory' | 'forest' | 'midnight';
 export type CrateLayout = 'stack' | 'grid';
 
 export interface PlayerState {

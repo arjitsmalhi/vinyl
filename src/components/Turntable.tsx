@@ -258,77 +258,8 @@ export const Turntable: React.FC = () => {
               </div>
             </div>
 
-            {/* Plinth Brand Plate */}
-            <div className="absolute bottom-4 right-8 flex items-center gap-2 pointer-events-none opacity-80 z-20">
-              <span className="font-display text-[10px] tracking-widest uppercase text-[var(--brass)] font-semibold">
-                SPINDLE HI-FI
-              </span>
-              <span className="text-[9px] font-mono text-[var(--text-faint)]">33⅓ RPM</span>
-            </div>
           </div>
         </div>
-      </div>
-
-      {/* Theme Palette Switcher Pill (Exact Match to Reference Image 2) */}
-      <div className="flex items-center gap-2.5 p-1.5 rounded-full bg-[#0E1216] border border-[#232B34] shadow-lg mt-1 mb-2">
-        <span className="text-[10px] uppercase font-bold text-[var(--text-faint)] pl-2 pr-1 flex items-center gap-1 font-mono">
-          <Palette className="w-3 h-3 text-[var(--brass)]" /> Room
-        </span>
-
-        {/* Dynamic Album Accent */}
-        <button
-          onClick={() => setRoomTheme('dynamic')}
-          className={`w-5 h-5 rounded-full transition-transform ${
-            roomTheme === 'dynamic' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          style={{ backgroundColor: currentCollection?.dominantColor || '#C8A25A' }}
-          title="Dynamic Album Accent Room"
-        />
-
-        {/* Warm Amber (Image 2 style) */}
-        <button
-          onClick={() => setRoomTheme('amber')}
-          className={`w-5 h-5 rounded-full bg-[#F59E0B] transition-transform ${
-            roomTheme === 'amber' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          title="Warm Amber Honey Room (Reference Image 2)"
-        />
-
-        {/* Studio Ivory / Linen (Image 1 style) */}
-        <button
-          onClick={() => setRoomTheme('ivory')}
-          className={`w-5 h-5 rounded-full bg-[#EAE6DF] transition-transform ${
-            roomTheme === 'ivory' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          title="Studio Linen Ivory Room (Reference Image 1)"
-        />
-
-        {/* Obsidian Dark */}
-        <button
-          onClick={() => setRoomTheme('dark')}
-          className={`w-5 h-5 rounded-full bg-[#050608] border border-white/20 transition-transform ${
-            roomTheme === 'dark' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          title="Obsidian Dark Room"
-        />
-
-        {/* Slipmat Forest */}
-        <button
-          onClick={() => setRoomTheme('forest')}
-          className={`w-5 h-5 rounded-full bg-[#1A332B] transition-transform ${
-            roomTheme === 'forest' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          title="Deep Forest Room"
-        />
-
-        {/* Midnight Blue */}
-        <button
-          onClick={() => setRoomTheme('midnight')}
-          className={`w-5 h-5 rounded-full bg-[#1E293B] transition-transform ${
-            roomTheme === 'midnight' ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-[#0E1216]' : 'opacity-70 hover:opacity-100'
-          }`}
-          title="Midnight Blue Room"
-        />
       </div>
     </div>
   );

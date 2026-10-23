@@ -23,7 +23,7 @@ export const TrackList: React.FC = () => {
 
   return (
     <div className="w-full max-w-xl mx-auto px-4 mt-2">
-      <div className="border-t border-[#1C232B] pt-4 pb-12">
+      <div className="border-t border-[var(--border-subtle)] pt-4 pb-12">
         <div className="flex items-center justify-between text-xs text-[var(--text-faint)] font-medium uppercase tracking-wider mb-3 px-3">
           <span>Track</span>
           <span>Time</span>
@@ -39,8 +39,8 @@ export const TrackList: React.FC = () => {
                 onClick={() => playTrack(idx)}
                 className={`group flex items-center justify-between p-2.5 sm:px-3 rounded-xl cursor-pointer transition-all ${
                   isSelected
-                    ? 'bg-[#151B22] border border-[var(--brass)] shadow-md'
-                    : 'bg-[#0E1216] hover:bg-[#13181E] border border-[#1A2027]'
+                    ? 'bg-[var(--bg-surface-elevated)] border border-[var(--brass)] shadow-md'
+                    : 'bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)]'
                 }`}
               >
                 <div className="flex items-center gap-3 sm:gap-4 min-w-0 pr-2">

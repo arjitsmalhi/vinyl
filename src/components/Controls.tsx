@@ -114,8 +114,8 @@ export const Controls: React.FC<ControlsProps> = ({ showTrackList, onToggleTrack
           onClick={toggleCrackle}
           className={`p-2 rounded-full border transition-all ${
             crackleEnabled
-              ? 'text-[var(--brass)] bg-[#10241D] border-[var(--brass)]'
-              : 'text-[var(--text-faint)] bg-[#0E1216] border-[#202730] hover:text-[var(--sleeve)]'
+              ? 'text-[var(--brass)] bg-[#10241D] border-[var(--brass)] shadow-[0_0_10px_rgba(200,162,90,0.25)]'
+              : 'text-[var(--text-faint)] bg-[var(--bg-surface)] border-[var(--border-subtle)] hover:text-[var(--sleeve)]'
           }`}
           title="Toggle vinyl crackle & surface noise"
         >
@@ -153,23 +153,23 @@ export const Controls: React.FC<ControlsProps> = ({ showTrackList, onToggleTrack
           </button>
         </div>
 
-        {/* Right: Volume & Tracklist toggle */}
+        {/* Right: Volume & Queue of songs toggle */}
         <div className="flex items-center gap-2">
           {onToggleTrackList && (
             <button
               onClick={onToggleTrackList}
               className={`p-2 rounded-full border text-xs font-medium transition-all ${
                 showTrackList
-                  ? 'bg-[#18202A] border-[var(--brass)] text-[var(--brass)]'
-                  : 'bg-[#0E1216] border-[#202730] text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+                  ? 'bg-[var(--brass)] text-black border-[var(--brass)] shadow-md'
+                  : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--sleeve)]'
               }`}
-              title="Toggle Track List"
+              title="Toggle Song Queue"
             >
               <ListMusic className="w-4 h-4" />
             </button>
           )}
 
-          <div className="hidden sm:flex items-center gap-1.5 text-[var(--text-muted)] bg-[#0E1216] border border-[#202730] px-2.5 py-1.5 rounded-full">
+          <div className="hidden sm:flex items-center gap-1.5 text-[var(--text-muted)] bg-[var(--bg-surface)] border border-[var(--border-subtle)] px-2.5 py-1.5 rounded-full">
             <button
               onClick={toggleMute}
               className="hover:text-[var(--sleeve)] transition-colors"

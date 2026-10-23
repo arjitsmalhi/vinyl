@@ -7,7 +7,7 @@ import { Controls } from './components/Controls';
 import { TrackList } from './components/TrackList';
 import { SignInModal } from './components/SignInModal';
 import { spotifyService } from './services/spotify';
-import { ArrowLeft, Play, Pause } from 'lucide-react';
+import { Play, Pause } from 'lucide-react';
 
 export const App: React.FC = () => {
   const {
@@ -23,7 +23,7 @@ export const App: React.FC = () => {
   } = usePlayerStore();
 
   const [isSignInOpen, setIsSignInOpen] = useState(false);
-  const [showTrackList, setShowTrackList] = useState(false);
+  const [showQueue, setShowQueue] = useState(false);
 
   useEffect(() => {
     initialize();
@@ -57,49 +57,40 @@ export const App: React.FC = () => {
   const currentTrack = currentCollection?.tracks[currentTrackIndex];
 
   return (
-    <div className={`min-h-screen flex flex-col relative transition-all duration-700 theme-${roomTheme}`}>
-      {/* Top Header */}
-      <Header onOpenSignIn={() => setIsSignInOpen(true)} />
+    <div className={`min-h-screen flex flex-col relative transition-colors duration-500 theme-${roomTheme}`}>
+      {/* Ultra-Minimalist Header (No name on top left, light/dark toggle, queue button) */}
+      <Header
+        onOpenSignIn={() => setIsSignInOpen(true)}
+        showQueue={showQueue}
+        onToggleQueue={() => setShowQueue(!showQueue)}
+      />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center pb-24">
+      <main className="flex-1 flex flex-col items-center px-4 py-4 sm:py-6">
         {viewMode === 'crate' ? (
           <CrateView />
         ) : (
-          <div className="w-full max-w-4xl px-4 py-6 sm:py-8 flex flex-col items-center">
-            {/* Top Navigation Bar inside Player */}
-            <div className="w-full flex items-center justify-between mb-4 sm:mb-6">
-              <button
-                onClick={() => setViewMode('crate')}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0E1216] hover:bg-[#161D24] border border-[#202730] text-xs text-[var(--text-muted)] hover:text-[var(--sleeve)] transition-colors shadow-sm"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Back to Crate</span>
-              </button>
-
-              <div className="flex items-center gap-2 text-right">
-                <span className="text-xs uppercase tracking-wider text-[var(--brass)] font-semibold">
-                  {currentCollection?.type}
-                </span>
-                <span className="text-xs text-[var(--text-faint)]">•</span>
-                <span className="text-xs text-[var(--text-muted)] truncate max-w-[160px] sm:max-w-xs">
-                  {currentCollection?.title}
-                </span>
-              </div>
-            </div>
-
-            {/* Turntable Plinth & Side-by-Side Sleeve (Image 1 & 2) */}
+          <div className="w-full max-w-4xl flex flex-col items-center">
+            {/* 3D Vinyl Turntable Platter (Reference Images 1 & 2) */}
             <Turntable />
 
-            {/* Minimalist Player Controls (Image 2) */}
+            {/* Minimalist Player Controls */}
             <Controls
-              showTrackList={showTrackList}
-              onToggleTrackList={() => setShowTrackList(!showTrackList)}
+              showTrackList={showQueue}
+              onToggleTrackList={() => setShowQueue(!showQueue)}
             />
 
-            {/* Track List (Cleanly flows below without overlapping footer) */}
-            {showTrackList && (
-              <div className="w-full mt-6 animate-fadeIn">
+            {/* Queue of songs (Clean expandable song queue) */}
+            {showQueue && (
+              <div className="w-full max-w-xl mx-auto mt-4 animate-fadeIn">
+                <div className="flex items-center justify-between px-4 pb-2 border-b border-[var(--border-subtle)] text-xs text-[var(--text-muted)] font-medium">
+                  <span className="uppercase tracking-wider font-semibold text-[var(--brass)]">
+                    Upcoming Songs Queue
+                  </span>
+                  <span>
+                    {currentCollection?.tracks.length || 0} track{currentCollection?.tracks.length !== 1 ? 's' : ''}
+                  </span>
+                </div>
                 <TrackList />
               </div>
             )}
@@ -107,23 +98,9 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Semantic Footer ensuring clean layout boundaries and zero overlap */}
-      <footer className="w-full mt-auto py-6 px-4 sm:px-8 border-t border-[#181F26] bg-[#070A0D] text-xs text-[var(--text-faint)] relative z-10">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <div className="flex items-center gap-2 text-[var(--sleeve)] font-display font-medium text-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brass)]" />
-            <span>Spindle Vinyl Hi-Fi</span>
-            <span className="text-[var(--text-faint)] font-normal hidden sm:inline">• 33⅓ RPM Physics</span>
-          </div>
-          <p className="text-[11px] text-[var(--text-muted)]">
-            Acoustic vinyl playback, tactile crate browsing, and full-bleed picture disc presentation.
-          </p>
-        </div>
-      </footer>
-
       {/* Floating Mini Player ONLY if in Crate view */}
       {viewMode === 'crate' && currentCollection && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-md bg-[#0C1014] border border-[#232B34] rounded-2xl p-2.5 sm:px-4 flex items-center justify-between gap-3 shadow-2xl">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-md bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-full p-2 px-4 flex items-center justify-between gap-3 shadow-2xl backdrop-blur-md">
           <div
             onClick={() => setViewMode('player')}
             className="flex items-center gap-3 cursor-pointer group min-w-0"
@@ -147,15 +124,15 @@ export const App: React.FC = () => {
           <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={togglePlay}
-              className="w-9 h-9 rounded-full bg-[var(--brass)] text-[#050608] flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md"
+              className="w-8 h-8 rounded-full bg-[var(--brass)] text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md"
             >
               {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 ml-0.5 fill-current" />}
             </button>
             <button
               onClick={() => setViewMode('player')}
-              className="px-2.5 py-1.5 rounded-lg bg-[#18202A] text-xs text-[var(--sleeve)] hover:bg-[#202B38] transition-colors border border-[#263342]"
+              className="px-2.5 py-1 rounded-full border border-[var(--border-subtle)] text-[11px] text-[var(--sleeve)] hover:border-[var(--brass)] transition-colors"
             >
-              Turntable
+              Player
             </button>
           </div>
         </div>

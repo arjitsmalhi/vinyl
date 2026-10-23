@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Collection, Track, PlayerState } from '../types';
+import { Collection, Track, PlayerState, RoomTheme } from '../types';
 import { MOCK_COLLECTIONS } from '../data/mockCollections';
 import { audioEngine } from '../utils/audioEngine';
 import { extractDominantColor } from '../utils/colorExtractor';
@@ -31,7 +31,7 @@ interface PlayerStore extends PlayerState {
   setSpotifyConnected: (connected: boolean) => void;
   setCollections: (collections: Collection[]) => void;
   setCrateLayout: (layout: 'stack' | 'grid') => void;
-  setRoomTheme: (theme: 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight') => void;
+  setRoomTheme: (theme: 'dark' | 'light' | 'dynamic' | 'amber' | 'ivory' | 'forest' | 'midnight') => void;
 }
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
@@ -48,9 +48,9 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   repeatMode: 'off',
   crackleEnabled: true,
   crackleVolume: 0.25,
-  viewMode: 'crate',
-  crateLayout: 'stack', // Default to 3D stacked crate from Image 3
-  roomTheme: 'dynamic', // Dynamic background tint from Image 2
+  viewMode: 'player', // Default directly to the vinyl player
+  crateLayout: 'grid', // Default to clean cover with peeking popping vinyl
+  roomTheme: 'dark', // Clean dark mode by default
   searchQuery: '',
   filterType: 'all',
   provider: 'demo',
@@ -337,7 +337,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     set({ crateLayout: layout });
   },
 
-  setRoomTheme: (theme: 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight') => {
+  setRoomTheme: (theme: RoomTheme) => {
     set({ roomTheme: theme });
   }
 }));
