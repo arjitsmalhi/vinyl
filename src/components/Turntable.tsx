@@ -173,8 +173,12 @@ export const Turntable: React.FC = () => {
               </div>
             </div>
 
-            {/* 3D Turntable Platter & Felt Slipmat */}
-            <div className="turntable-platter-3d relative">
+            {/* 3D Turntable Platter & Felt Slipmat (Entire vinyl clickable to play/pause) */}
+            <div
+              onClick={togglePlay}
+              className="turntable-platter-3d relative cursor-pointer group"
+              title="Click anywhere on vinyl record to Play/Pause"
+            >
               <AnimatePresence mode="wait">
                 {!isDiscSwapping && currentCollection && (
                   <motion.div
@@ -196,10 +200,9 @@ export const Turntable: React.FC = () => {
                       scale: 0.94,
                       transition: { duration: 0.35, ease: 'easeIn' }
                     }}
-                    onClick={togglePlay}
                     className={`vinyl-disc ${isPlaying ? 'spinning' : 'spinning-paused'}`}
                   >
-                    {/* Dynamic Center Label */}
+                    {/* Dynamic Center Label (Large 58% cover art matching Reference Image 2) */}
                     <div className="vinyl-label">
                       <img
                         src={currentCollection.coverUrl}

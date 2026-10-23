@@ -23,6 +23,7 @@ export const App: React.FC = () => {
   } = usePlayerStore();
 
   const [isSignInOpen, setIsSignInOpen] = useState(false);
+  const [showTrackList, setShowTrackList] = useState(false);
 
   useEffect(() => {
     initialize();
@@ -61,7 +62,7 @@ export const App: React.FC = () => {
       <Header onOpenSignIn={() => setIsSignInOpen(true)} />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center">
+      <main className="flex-1 flex flex-col items-center pb-24">
         {viewMode === 'crate' ? (
           <CrateView />
         ) : (
@@ -87,19 +88,26 @@ export const App: React.FC = () => {
               </div>
             </div>
 
-            {/* 3D Turntable Plinth */}
+            {/* Turntable Plinth & Side-by-Side Sleeve (Image 1 & 2) */}
             <Turntable />
 
-            {/* Turntable Player Controls */}
-            <Controls />
+            {/* Minimalist Player Controls (Image 2) */}
+            <Controls
+              showTrackList={showTrackList}
+              onToggleTrackList={() => setShowTrackList(!showTrackList)}
+            />
 
-            {/* Track List with mini spinning vinyl icons */}
-            <TrackList />
+            {/* Track List (Cleanly flows below without overlapping footer) */}
+            {showTrackList && (
+              <div className="w-full animate-fadeIn">
+                <TrackList />
+              </div>
+            )}
           </div>
         )}
       </main>
 
-      {/* Floating Mini Player if in Crate view and record is loaded */}
+      {/* Floating Mini Player ONLY if in Crate view */}
       {viewMode === 'crate' && currentCollection && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-md bg-[#0C1014] border border-[#232B34] rounded-2xl p-2.5 sm:px-4 flex items-center justify-between gap-3 shadow-2xl">
           <div

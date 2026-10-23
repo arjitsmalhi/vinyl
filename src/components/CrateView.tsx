@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { usePlayerStore } from '../store/playerStore';
-import { Disc, Layers, LayoutGrid, Play } from 'lucide-react';
+import { Disc, Layers, LayoutGrid, Play, Music } from 'lucide-react';
 
 export const CrateView: React.FC = () => {
   const {
@@ -14,6 +14,8 @@ export const CrateView: React.FC = () => {
     setCrateLayout,
     isPlaying
   } = usePlayerStore();
+
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   const filteredCollections = collections.filter((c) => {
     const matchesFilter = filterType === 'all' || c.type === filterType;
@@ -57,7 +59,7 @@ export const CrateView: React.FC = () => {
                   ? 'bg-[#1C242E] text-[var(--brass)] shadow-sm'
                   : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
               }`}
-              title="3D Vertical Stacked Crate View (Reference Style)"
+              title="3D Stack View with Dynamic Gradients & Accordion Hover"
             >
               <Layers className="w-3.5 h-3.5" />
               <span>3D Stack</span>
@@ -69,7 +71,7 @@ export const CrateView: React.FC = () => {
                   ? 'bg-[#1C242E] text-[var(--brass)] shadow-sm'
                   : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
               }`}
-              title="Grid View"
+              title="Classic Grid View"
             >
               <LayoutGrid className="w-3.5 h-3.5" />
               <span>Grid</span>
@@ -123,57 +125,103 @@ export const CrateView: React.FC = () => {
         </div>
       ) : crateLayout === 'stack' ? (
         /* ====================================================================
-           MODE 1: 3D VERTICAL STACKED CRATE (Exact Match to Reference Image 3)
+           MODE 1: 3D STACK WITH ACCORDION PUSH-APART ON HOVER & GRADIENTS
            ==================================================================== */
         <div className="crate-3d-stack-viewport">
           {filteredCollections.map((col, idx) => {
             const isCurrentlyActive = currentCollection?.id === col.id;
+            const isHovered = hoveredIdx === idx;
+
+            // Accordion push-apart math:
+            // Items above push up, hovered item lifts, items below push down
+            let translateY = 0;
+            let translateZ = 0;
+            let scale = 1;
+
+            if (hoveredIdx !== null) {
+              if (idx < hoveredIdx) {
+                translateY = -48; // Pushed up smoothly
+              } else if (idx === hoveredIdx) {
+                translateY = 0;
+                translateZ = 55; // Lifts forward toward viewer
+                scale = 1.05;
+              } else {
+                translateY = 68; // Pushed down smoothly
+              }
+            }
 
             return (
               <div
                 key={col.id}
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
                 onClick={() => selectCollection(col, true)}
-                className="crate-stack-card group"
+                className="crate-stack-card"
                 style={{
-                  zIndex: filteredCollections.length - idx
+                  transform: `rotateX(30deg) translateY(${translateY}px) translateZ(${translateZ}px) scale(${scale})`,
+                  zIndex: isHovered ? 99 : filteredCollections.length - idx,
+                  transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease'
                 }}
               >
-                {/* 3D Receding Jacket Face */}
-                <div className="crate-stack-face">
-                  <img
-                    src={col.coverUrl}
-                    alt={col.title}
-                    loading="eager"
-                  />
-                  {/* Subtle vinyl gloss sheen */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10 pointer-events-none" />
-                </div>
-
-                {/* 3D Colored Spine Edge with Exact Reference Typography */}
+                {/* Modern Card Face with Rich Cover Art Gradient */}
                 <div
-                  className="crate-stack-spine"
+                  className="crate-stack-face-modern"
                   style={{
-                    backgroundColor: col.spineColor || col.dominantColor
+                    background: `linear-gradient(135deg, ${col.dominantColor}55 0%, #101419 65%, #080A0D 100%)`,
+                    borderColor: isHovered ? col.dominantColor : 'rgba(255, 255, 255, 0.14)',
+                    boxShadow: isHovered
+                      ? `0 24px 55px rgba(0, 0, 0, 0.95), 0 0 30px ${col.dominantColor}44`
+                      : '0 14px 30px rgba(0, 0, 0, 0.85)'
                   }}
                 >
-                  <div className="flex items-center gap-2 truncate pr-2">
-                    <span className="font-bold tracking-tight text-white drop-shadow-sm truncate">
+                  {/* Left: Metadata & Play Prompt (Centered on Face, NOT on Side) */}
+                  <div className="flex-1 pr-4 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: `${col.dominantColor}33`,
+                          color: '#FFFFFF',
+                          border: `1px solid ${col.dominantColor}66`
+                        }}
+                      >
+                        {col.year || col.type}
+                      </span>
+                      {isCurrentlyActive && (
+                        <span className="text-[10px] font-bold uppercase text-[var(--brass)] flex items-center gap-1">
+                          <span className={`w-1.5 h-1.5 rounded-full bg-[var(--brass)] ${isPlaying ? 'animate-ping' : ''}`} />
+                          {isPlaying ? 'Now Spinning' : 'Loaded'}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title on the face */}
+                    <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight truncate drop-shadow-md">
                       {col.title}
-                    </span>
-                    <span className="text-white/80 font-normal text-xs truncate">
+                    </h3>
+                    <p className="text-xs text-white/80 font-medium truncate mt-0.5">
                       {col.artist}
-                    </span>
+                    </p>
+
+                    <div className="flex items-center gap-2 mt-2 text-[11px] text-white/60">
+                      <span>{col.trackCount} tracks</span>
+                      <span>•</span>
+                      <span className="capitalize">{col.type}</span>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
-                    {isCurrentlyActive && (
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-black/40 text-[var(--brass)] border border-[var(--brass)]">
-                        {isPlaying ? 'Playing' : 'Ready'}
-                      </span>
-                    )}
-                    <span className="text-[11px] text-white/70 font-mono">
-                      {col.year || 'LP'}
-                    </span>
+                  {/* Right: Centered Cover Artwork on Face */}
+                  <div className="crate-centered-art relative group-hover:scale-105 transition-transform duration-300">
+                    <img
+                      src={col.coverUrl}
+                      alt={col.title}
+                      loading="eager"
+                    />
+                    <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-[var(--brass)] text-black flex items-center justify-center shadow-lg">
+                        <Play className="w-4 h-4 ml-0.5 fill-current" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
