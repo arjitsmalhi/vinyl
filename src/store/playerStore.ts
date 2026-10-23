@@ -30,6 +30,8 @@ interface PlayerStore extends PlayerState {
   setTonearmAngle: (angle: number) => void;
   setSpotifyConnected: (connected: boolean) => void;
   setCollections: (collections: Collection[]) => void;
+  setCrateLayout: (layout: 'stack' | 'grid') => void;
+  setRoomTheme: (theme: 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight') => void;
 }
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
@@ -44,9 +46,11 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   isMuted: false,
   isShuffle: false,
   repeatMode: 'off',
-  crackleEnabled: true, // Default ON for authentic listening room immersion
+  crackleEnabled: true,
   crackleVolume: 0.25,
   viewMode: 'crate',
+  crateLayout: 'stack', // Default to 3D stacked crate from Image 3
+  roomTheme: 'dynamic', // Dynamic background tint from Image 2
   searchQuery: '',
   filterType: 'all',
   provider: 'demo',
@@ -55,7 +59,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   isDiscSwapping: false,
   discSwapDirection: 'next',
   isDraggingTonearm: false,
-  tonearmAngle: 10, // Off platter initially
+  tonearmAngle: 10,
 
   initialize: () => {
     const { currentCollection, currentTrackIndex, volume, crackleEnabled, crackleVolume } = get();
@@ -327,5 +331,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
 
   setSpotifyConnected: (connected: boolean) => {
     set({ spotifyConnected: connected });
+  },
+
+  setCrateLayout: (layout: 'stack' | 'grid') => {
+    set({ crateLayout: layout });
+  },
+
+  setRoomTheme: (theme: 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight') => {
+    set({ roomTheme: theme });
   }
 }));
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePlayerStore } from '../store/playerStore';
-import { Disc, Play } from 'lucide-react';
+import { Disc, Layers, LayoutGrid, Play } from 'lucide-react';
 
 export const CrateView: React.FC = () => {
   const {
@@ -10,6 +10,8 @@ export const CrateView: React.FC = () => {
     searchQuery,
     filterType,
     setFilterType,
+    crateLayout,
+    setCrateLayout,
     isPlaying
   } = usePlayerStore();
 
@@ -23,7 +25,7 @@ export const CrateView: React.FC = () => {
   });
 
   return (
-    <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8 bg-[#0A0C0E]">
+    <div className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-8">
       {/* Crate Header & Filter Bar */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 pb-4 border-b border-[#1C232B]">
         <div>
@@ -44,42 +46,73 @@ export const CrateView: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0E1216] border border-[#202730] self-start sm:self-auto">
-          <button
-            onClick={() => setFilterType('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              filterType === 'all'
-                ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
-                : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
-            }`}
-          >
-            All Crates
-          </button>
-          <button
-            onClick={() => setFilterType('album')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              filterType === 'album'
-                ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
-                : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
-            }`}
-          >
-            Albums
-          </button>
-          <button
-            onClick={() => setFilterType('playlist')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              filterType === 'playlist'
-                ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
-                : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
-            }`}
-          >
-            Playlists
-          </button>
+        {/* View Layout Toggle & Filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          {/* 3D Stack / Grid View Switcher */}
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-[#0E1216] border border-[#202730]">
+            <button
+              onClick={() => setCrateLayout('stack')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                crateLayout === 'stack'
+                  ? 'bg-[#1C242E] text-[var(--brass)] shadow-sm'
+                  : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+              }`}
+              title="3D Vertical Stacked Crate View (Reference Style)"
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>3D Stack</span>
+            </button>
+            <button
+              onClick={() => setCrateLayout('grid')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                crateLayout === 'grid'
+                  ? 'bg-[#1C242E] text-[var(--brass)] shadow-sm'
+                  : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+              }`}
+              title="Grid View"
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span>Grid</span>
+            </button>
+          </div>
+
+          {/* Filter Pills */}
+          <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0E1216] border border-[#202730]">
+            <button
+              onClick={() => setFilterType('all')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                filterType === 'all'
+                  ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
+                  : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setFilterType('album')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                filterType === 'album'
+                  ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
+                  : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+              }`}
+            >
+              Albums
+            </button>
+            <button
+              onClick={() => setFilterType('playlist')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                filterType === 'playlist'
+                  ? 'bg-[#1C242E] text-[var(--sleeve)] shadow-sm'
+                  : 'text-[var(--text-muted)] hover:text-[var(--sleeve)]'
+              }`}
+            >
+              Playlists
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Grid of vinyl sleeves */}
+      {/* Empty State */}
       {filteredCollections.length === 0 ? (
         <div className="py-20 text-center rounded-2xl border border-dashed border-[#202730] bg-[#0E1216]">
           <Disc className="w-10 h-10 mx-auto text-[var(--text-faint)] mb-3 animate-spin" style={{ animationDuration: '6s' }} />
@@ -88,7 +121,69 @@ export const CrateView: React.FC = () => {
             No vinyl sleeves match "{searchQuery}". Try searching for another artist or clear your filter.
           </p>
         </div>
+      ) : crateLayout === 'stack' ? (
+        /* ====================================================================
+           MODE 1: 3D VERTICAL STACKED CRATE (Exact Match to Reference Image 3)
+           ==================================================================== */
+        <div className="crate-3d-stack-viewport">
+          {filteredCollections.map((col, idx) => {
+            const isCurrentlyActive = currentCollection?.id === col.id;
+
+            return (
+              <div
+                key={col.id}
+                onClick={() => selectCollection(col, true)}
+                className="crate-stack-card group"
+                style={{
+                  zIndex: filteredCollections.length - idx
+                }}
+              >
+                {/* 3D Receding Jacket Face */}
+                <div className="crate-stack-face">
+                  <img
+                    src={col.coverUrl}
+                    alt={col.title}
+                    loading="eager"
+                  />
+                  {/* Subtle vinyl gloss sheen */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-white/10 pointer-events-none" />
+                </div>
+
+                {/* 3D Colored Spine Edge with Exact Reference Typography */}
+                <div
+                  className="crate-stack-spine"
+                  style={{
+                    backgroundColor: col.spineColor || col.dominantColor
+                  }}
+                >
+                  <div className="flex items-center gap-2 truncate pr-2">
+                    <span className="font-bold tracking-tight text-white drop-shadow-sm truncate">
+                      {col.title}
+                    </span>
+                    <span className="text-white/80 font-normal text-xs truncate">
+                      {col.artist}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    {isCurrentlyActive && (
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-black/40 text-[var(--brass)] border border-[var(--brass)]">
+                        {isPlaying ? 'Playing' : 'Ready'}
+                      </span>
+                    )}
+                    <span className="text-[11px] text-white/70 font-mono">
+                      {col.year || 'LP'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       ) : (
+        /* ====================================================================
+           MODE 2: CLASSIC SLEEVE GRID
+           ==================================================================== */
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8 pt-6">
           {filteredCollections.map((col) => {
             const isCurrentlyActive = currentCollection?.id === col.id;
@@ -143,7 +238,7 @@ export const CrateView: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Type tag (Album/Playlist) */}
+                  {/* Type tag */}
                   <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded bg-[#080A0D] text-[9px] uppercase tracking-wider text-[var(--sleeve)] border border-[#232B34] font-semibold">
                     {col.year || col.type}
                   </div>

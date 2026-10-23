@@ -1,6 +1,6 @@
 /**
- * Self-contained SVG album artworks for Spindle.
- * Guarantee 100% offline reliability, zero CORS errors, and razor-sharp retro vinyl aesthetic.
+ * High-fidelity vector album artworks inspired directly by the reference images.
+ * Loads 100% reliably and offline.
  */
 
 function svgToDataUri(svg: string): string {
@@ -8,200 +8,163 @@ function svgToDataUri(svg: string): string {
 }
 
 export const ALBUM_COVERS = {
-  kindOfBlue: svgToDataUri(`
+  // Reference Image 1: Emerald/turquoise clear pool water with swimmer
+  lawOfAttraction: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
       <defs>
-        <radialGradient id="bg" cx="40%" cy="30%" r="70%">
-          <stop offset="0%" stop-color="#1B3854"/>
-          <stop offset="60%" stop-color="#0E1E2E"/>
-          <stop offset="100%" stop-color="#070F17"/>
+        <radialGradient id="water" cx="45%" cy="50%" r="75%">
+          <stop offset="0%" stop-color="#5FE3CD"/>
+          <stop offset="40%" stop-color="#28B8A5"/>
+          <stop offset="80%" stop-color="#146B60"/>
+          <stop offset="100%" stop-color="#083832"/>
         </radialGradient>
-        <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#E5C77A"/>
-          <stop offset="100%" stop-color="#9C772F"/>
-        </linearGradient>
       </defs>
-      <!-- Solid Jacket Ground -->
-      <rect width="600" height="600" fill="url(#bg)"/>
-      
-      <!-- Vintage Columbia-style Header Banner -->
-      <rect x="0" y="0" width="600" height="85" fill="#0A131C"/>
-      <line x1="0" y1="85" x2="600" y2="85" stroke="#E5C77A" stroke-width="2"/>
-      <text x="35" y="52" fill="#E5C77A" font-family="'Bricolage Grotesque', sans-serif" font-size="28" font-weight="800" letter-spacing="4">COLUMBIA</text>
-      <text x="35" y="72" fill="#7D98B3" font-family="'Instrument Sans', sans-serif" font-size="12" letter-spacing="6">GUARANTEED HIGH FIDELITY • CL 1355</text>
-      <circle cx="545" cy="42" r="18" fill="none" stroke="#E5C77A" stroke-width="2"/>
-      <polygon points="545,30 553,46 537,46" fill="#E5C77A"/>
+      <rect width="600" height="600" fill="url(#water)"/>
+      <!-- Water ripples and caustics -->
+      <path d="M0,150 Q150,110 300,160 T600,140 L600,600 L0,600 Z" fill="#20A896" opacity="0.4"/>
+      <path d="M0,320 Q200,280 400,340 T600,310 L600,600 L0,600 Z" fill="#147568" opacity="0.45"/>
+      <circle cx="280" cy="300" r="180" fill="none" stroke="#A7F3D0" stroke-width="3" opacity="0.35"/>
+      <circle cx="280" cy="300" r="120" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+      <!-- Swimmer figure -->
+      <g transform="translate(260, 280)">
+        <ellipse cx="0" cy="0" rx="20" ry="34" fill="#E2E8F0" opacity="0.9" transform="rotate(-30)"/>
+        <circle cx="-14" cy="-30" r="12" fill="#1E293B"/>
+        <path d="M-8,14 Q-4,45 16,60" stroke="#38BDF8" stroke-width="14" fill="none" stroke-linecap="round"/>
+        <circle cx="0" cy="0" r="45" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+      </g>
+      <!-- Title on dark border -->
+      <rect x="0" y="520" width="600" height="80" fill="#082823"/>
+      <text x="35" y="565" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="28" font-weight="800">LAW OF ATTRACTION</text>
+      <text x="565" y="565" text-anchor="end" fill="#5FE3CD" font-family="'Instrument Sans', sans-serif" font-size="16" font-weight="600">SHE HER HERS</text>
+    </svg>
+  `),
 
-      <!-- Graphic Trumpet Silhouette & Echo Rings -->
+  // Reference Image 2: Vibrant red/scarlet hands on satin
+  chuloPt2: svgToDataUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+      <defs>
+        <radialGradient id="redGlow" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" stop-color="#FF3355"/>
+          <stop offset="50%" stop-color="#B80D2D"/>
+          <stop offset="100%" stop-color="#3D000A"/>
+        </radialGradient>
+      </defs>
+      <rect width="600" height="600" fill="url(#redGlow)"/>
+      <!-- Artistic metallic hands silhouette -->
       <g transform="translate(300, 310)">
-        <circle cx="0" cy="0" r="160" fill="none" stroke="#254A6E" stroke-width="2" opacity="0.4"/>
-        <circle cx="0" cy="0" r="120" fill="none" stroke="#356696" stroke-width="2" opacity="0.6"/>
-        <circle cx="0" cy="0" r="80" fill="none" stroke="#E5C77A" stroke-width="2" opacity="0.5"/>
-        <path d="M-90,-20 C-30,-70 60,-60 110,-10 L130,-30 L130,30 L110,10 C60,60 -30,70 -90,20 Z" fill="url(#brassGrad)" opacity="0.9"/>
-        <circle cx="-90" cy="0" r="14" fill="#E5C77A"/>
+        <ellipse cx="0" cy="0" rx="160" ry="180" fill="#750619" opacity="0.8"/>
+        <!-- Stylized silver manicure fingers -->
+        <path d="M-40,60 C-50,-20 -40,-90 -20,-140 C-10,-90 0,-20 0,60 Z" fill="#FFCCD5" opacity="0.95"/>
+        <path d="M0,60 C-5,-30 5,-110 25,-160 C35,-110 40,-30 35,60 Z" fill="#FFE4E6" opacity="0.9"/>
+        <path d="M40,70 C40,-10 55,-80 75,-120 C85,-80 80,-10 70,70 Z" fill="#FECDD3" opacity="0.85"/>
+        <path d="M-80,80 C-85,10 -75,-50 -60,-80 C-50,-50 -45,10 -45,80 Z" fill="#FDA4AF" opacity="0.8"/>
       </g>
-
-      <!-- Typography -->
-      <text x="40" y="490" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="46" font-weight="900" letter-spacing="-1">KIND OF BLUE</text>
-      <text x="40" y="528" fill="#E5C77A" font-family="'Bricolage Grotesque', sans-serif" font-size="24" font-weight="600" letter-spacing="1">MILES DAVIS</text>
-      <text x="40" y="556" fill="#8CA4BD" font-family="'Instrument Sans', sans-serif" font-size="14" letter-spacing="2">with John Coltrane • Cannonball Adderley • Bill Evans</text>
+      <!-- Script typography -->
+      <text x="50" y="90" fill="#FFCCD5" font-family="'Bricolage Grotesque', sans-serif" font-size="44" font-weight="900" letter-spacing="-1">CHULO PT. 2</text>
+      <text x="50" y="125" fill="#FFA3B5" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Bad Gyal • Tokischa • Young Miko</text>
     </svg>
   `),
 
-  tokyoLofi: svgToDataUri(`
+  // Reference Image 3: Yellow/Amber Tyler cover
+  seeYouAgain: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-      <defs>
-        <linearGradient id="neonSky" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#140A1E"/>
-          <stop offset="45%" stop-color="#311138"/>
-          <stop offset="85%" stop-color="#802050"/>
-          <stop offset="100%" stop-color="#C84858"/>
-        </linearGradient>
-      </defs>
-      <!-- Sky Ground -->
-      <rect width="600" height="600" fill="url(#neonSky)"/>
-      
-      <!-- Retro Neon Sun / Moon -->
-      <circle cx="300" cy="270" r="110" fill="#FF5E7E" opacity="0.9"/>
-      <!-- Sun blind slats -->
-      <rect x="180" y="270" width="240" height="6" fill="#140A1E"/>
-      <rect x="180" y="290" width="240" height="8" fill="#140A1E"/>
-      <rect x="180" y="315" width="240" height="12" fill="#140A1E"/>
-      <rect x="180" y="345" width="240" height="16" fill="#140A1E"/>
-
-      <!-- Tokyo Skyline Silhouette -->
-      <path d="M0,450 L40,450 L40,410 L70,410 L70,450 L110,450 L110,380 L130,380 L130,340 L140,340 L140,450 L190,450 L190,420 L230,420 L230,450 L270,450 L270,360 L285,310 L300,310 L315,360 L315,450 L370,450 L370,390 L410,390 L410,450 L460,450 L460,370 L490,370 L490,450 L540,450 L540,430 L600,430 L600,600 L0,600 Z" fill="#0C0512"/>
-
-      <!-- Japanese Kanji & Typography -->
-      <text x="45" y="85" fill="#FF8CA3" font-family="'Bricolage Grotesque', sans-serif" font-size="38" font-weight="900" letter-spacing="3">深夜 • 東京</text>
-      <text x="45" y="125" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="28" font-weight="700">MIDNIGHT TOKYO</text>
-      <text x="45" y="152" fill="#F4A261" font-family="'Instrument Sans', sans-serif" font-size="15" letter-spacing="4">ANALOG 4-TRACK CASSETTE TAPE CUT</text>
-
-      <rect x="420" y="45" width="135" height="40" rx="6" fill="#0C0512" stroke="#FF5E7E" stroke-width="1.5"/>
-      <text x="435" y="70" fill="#FF5E7E" font-family="'Instrument Sans', sans-serif" font-size="13" font-weight="700" letter-spacing="2">SP-404 PRO</text>
+      <rect width="600" height="600" fill="#F59E0B"/>
+      <circle cx="300" cy="270" r="140" fill="#D97706"/>
+      <circle cx="300" cy="270" r="110" fill="#B45309"/>
+      <!-- Sunburst petals -->
+      <circle cx="300" cy="270" r="60" fill="#78350F"/>
+      <circle cx="300" cy="270" r="25" fill="#FEF3C7"/>
+      <!-- Field green grass edge -->
+      <path d="M0,480 Q150,440 300,480 T600,450 L600,600 L0,600 Z" fill="#15803D"/>
+      <text x="50" y="90" fill="#451A03" font-family="'Bricolage Grotesque', sans-serif" font-size="40" font-weight="900">SEE YOU AGAIN</text>
+      <text x="50" y="125" fill="#78350F" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="700">Tyler, The Creator feat. Kali Uchis</text>
     </svg>
   `),
 
-  motownSoul: svgToDataUri(`
+  // Reference Image 3: Pink & Purple Loft Light Club
+  projectorBlues: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-      <defs>
-        <radialGradient id="soulBurst" cx="50%" cy="50%" r="65%">
-          <stop offset="0%" stop-color="#E28738"/>
-          <stop offset="60%" stop-color="#9C4416"/>
-          <stop offset="100%" stop-color="#1B0A05"/>
-        </radialGradient>
-      </defs>
-      <rect width="600" height="600" fill="url(#soulBurst)"/>
-      
-      <!-- Concentric Vintage Soul Rings -->
-      <circle cx="300" cy="300" r="230" fill="none" stroke="#FDE293" stroke-width="3" opacity="0.3"/>
-      <circle cx="300" cy="300" r="180" fill="none" stroke="#FDE293" stroke-width="1.5" opacity="0.4"/>
-      <circle cx="300" cy="300" r="130" fill="#180702" stroke="#FDE293" stroke-width="4"/>
-
-      <!-- Center Starburst Badge -->
-      <polygon points="300,210 325,270 390,275 340,315 355,380 300,345 245,380 260,315 210,275 275,270" fill="#FDE293"/>
-      <circle cx="300" cy="300" r="24" fill="#9C4416"/>
-
-      <!-- Typography -->
-      <text x="300" y="105" text-anchor="middle" fill="#FDE293" font-family="'Bricolage Grotesque', sans-serif" font-size="44" font-weight="900" letter-spacing="3">MOTOWN SOUL</text>
-      <text x="300" y="140" text-anchor="middle" fill="#FFFFFF" font-family="'Instrument Sans', sans-serif" font-size="16" letter-spacing="6">DETROIT RHYTHM SECTION • 1968</text>
-      <text x="300" y="520" text-anchor="middle" fill="#FDE293" font-family="'Bricolage Grotesque', sans-serif" font-size="26" font-weight="700" letter-spacing="1">DUSTY BRASS &amp; TAPE SATURATION</text>
-      <text x="300" y="550" text-anchor="middle" fill="#D39E70" font-family="'Instrument Sans', sans-serif" font-size="13" letter-spacing="4">STEREO MASTERING • 180G VINYL</text>
+      <rect width="600" height="600" fill="#831843"/>
+      <rect x="50" y="60" width="500" height="340" rx="16" fill="#F472B6"/>
+      <rect x="70" y="80" width="460" height="300" rx="10" fill="#FDF2F8"/>
+      <!-- Cloud animation projection -->
+      <ellipse cx="300" cy="230" rx="120" ry="70" fill="#EC4899" opacity="0.8"/>
+      <ellipse cx="230" cy="210" rx="70" ry="60" fill="#DB2777" opacity="0.9"/>
+      <ellipse cx="370" cy="220" rx="60" ry="50" fill="#F472B6" opacity="0.9"/>
+      <text x="50" y="470" fill="#FDF2F8" font-family="'Bricolage Grotesque', sans-serif" font-size="34" font-weight="900">PROJECTOR MONSTER BLUES</text>
+      <text x="50" y="505" fill="#FBCFE8" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Loft Light Club</text>
     </svg>
   `),
 
-  bossaNova: svgToDataUri(`
+  // Reference Image 3: Peel Slowly Citrus prints
+  peelSlowly: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-      <defs>
-        <linearGradient id="bossaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#1B382B"/>
-          <stop offset="50%" stop-color="#2D5A46"/>
-          <stop offset="100%" stop-color="#0E1D16"/>
-        </linearGradient>
-      </defs>
-      <rect width="600" height="600" fill="url(#bossaGrad)"/>
-
-      <!-- Geometric Brazilian Mid-century Shapes -->
-      <circle cx="300" cy="270" r="140" fill="#E6AF2E" opacity="0.85"/>
-      <path d="M160,270 A140,140 0 0,0 440,270 Z" fill="#C93B2B" opacity="0.9"/>
-      
-      <!-- Palm leaf silhouette -->
-      <path d="M300,150 Q360,220 300,360 Q240,220 300,150 Z" fill="#1B382B"/>
-      <line x1="300" y1="150" x2="300" y2="360" stroke="#E6AF2E" stroke-width="2"/>
-
-      <!-- Typography -->
-      <rect x="0" y="440" width="600" height="160" fill="#0E1D16"/>
-      <line x1="0" y1="440" x2="600" y2="440" stroke="#E6AF2E" stroke-width="3"/>
-      <text x="50" y="500" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="40" font-weight="900" letter-spacing="-0.5">VINTAGE BOSSA NOVA</text>
-      <text x="50" y="538" fill="#E6AF2E" font-family="'Bricolage Grotesque', sans-serif" font-size="22" font-weight="600">ASTRUD &amp; RIO TRIO • 1964</text>
-      <text x="50" y="568" fill="#A8C9B8" font-family="'Instrument Sans', sans-serif" font-size="13" letter-spacing="3">IPANEMA RECORDED IN RIO DE JANEIRO</text>
+      <rect width="600" height="600" fill="#FDF8F0"/>
+      <!-- Citrus fruit circles grid -->
+      <circle cx="180" cy="220" r="60" fill="#F59E0B"/>
+      <circle cx="300" cy="200" r="50" fill="#EF4444"/>
+      <circle cx="420" cy="230" r="65" fill="#EAB308"/>
+      <circle cx="230" cy="340" r="55" fill="#F97316"/>
+      <circle cx="370" cy="330" r="60" fill="#84CC16"/>
+      <!-- Shadows -->
+      <ellipse cx="180" cy="285" rx="45" ry="10" fill="#292524" opacity="0.12"/>
+      <ellipse cx="300" cy="255" rx="35" ry="8" fill="#292524" opacity="0.12"/>
+      <ellipse cx="420" cy="300" rx="50" ry="12" fill="#292524" opacity="0.12"/>
+      <text x="50" y="480" fill="#1C1917" font-family="'Bricolage Grotesque', sans-serif" font-size="42" font-weight="900">PEEL SLOWLY</text>
+      <text x="50" y="515" fill="#78716C" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Crush &amp; Pulp</text>
     </svg>
   `),
 
-  blueNote: svgToDataUri(`
+  // Reference Image 3: Channel After Midnight Terracotta Tile & Retro TV
+  channelAfterMidnight: svgToDataUri(`
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-      <!-- Iconic Reid Miles Bold Split Graphic -->
-      <rect width="600" height="600" fill="#0C1420"/>
-      <rect x="0" y="0" width="600" height="280" fill="#1C385C"/>
-
-      <!-- Blue Note Logo Header -->
-      <text x="45" y="65" fill="#E5AA38" font-family="'Bricolage Grotesque', sans-serif" font-size="34" font-weight="900" letter-spacing="2">BLUE NOTE</text>
-      <text x="470" y="65" fill="#FFFFFF" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="700" letter-spacing="3">4001</text>
-      <line x1="45" y1="85" x2="555" y2="85" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
-
-      <!-- Gigantic Typography Motif -->
-      <text x="45" y="170" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="52" font-weight="900" letter-spacing="-1">ECHOES</text>
-      <text x="45" y="240" fill="#E5AA38" font-family="'Bricolage Grotesque', sans-serif" font-size="52" font-weight="900" letter-spacing="-1">OF BLUE</text>
-
-      <!-- Lower Half: Francis Wolff style monochrome block -->
-      <circle cx="440" cy="430" r="110" fill="#14243A" stroke="#E5AA38" stroke-width="3"/>
-      <!-- Saxophone key pattern -->
-      <circle cx="410" cy="400" r="14" fill="#E5AA38"/>
-      <circle cx="440" cy="430" r="14" fill="#E5AA38"/>
-      <circle cx="470" cy="460" r="14" fill="#E5AA38"/>
-      <line x1="390" y1="380" x2="490" y2="480" stroke="#FFFFFF" stroke-width="3"/>
-
-      <text x="45" y="380" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="28" font-weight="700">THE 33⅓ HARD BOP QUINTET</text>
-      <text x="45" y="420" fill="#8EA9C7" font-family="'Instrument Sans', sans-serif" font-size="14" letter-spacing="2">HACKENSACK, NEW JERSEY STUDIO SESSIONS</text>
-      <text x="45" y="450" fill="#8EA9C7" font-family="'Instrument Sans', sans-serif" font-size="14" letter-spacing="2">VAN GELDER MASTERED ACETATE</text>
-    </svg>
-  `),
-
-  goldenHipHop: svgToDataUri(`
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
-      <defs>
-        <radialGradient id="hiphopBg" cx="50%" cy="50%" r="75%">
-          <stop offset="0%" stop-color="#3A170F"/>
-          <stop offset="70%" stop-color="#1E0B07"/>
-          <stop offset="100%" stop-color="#0A0402"/>
-        </radialGradient>
-      </defs>
-      <rect width="600" height="600" fill="url(#hiphopBg)"/>
-
-      <!-- Vinyl Crate Diggers Stamp Graphic -->
-      <rect x="50" y="50" width="500" height="500" fill="none" stroke="#C45A33" stroke-width="4" stroke-dasharray="14 10"/>
-      <circle cx="300" cy="270" r="130" fill="#140603" stroke="#F1875E" stroke-width="3"/>
-
-      <!-- MPC Drum Pad Grid -->
-      <g transform="translate(230, 200)">
-        <rect x="0" y="0" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="40" y="0" width="30" height="30" rx="4" fill="#F1875E"/>
-        <rect x="80" y="0" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="120" y="0" width="30" height="30" rx="4" fill="#F1875E"/>
-        <rect x="0" y="40" width="30" height="30" rx="4" fill="#F1875E"/>
-        <rect x="40" y="40" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="80" y="40" width="30" height="30" rx="4" fill="#F1875E"/>
-        <rect x="120" y="40" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="0" y="80" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="40" y="80" width="30" height="30" rx="4" fill="#F1875E"/>
-        <rect x="80" y="80" width="30" height="30" rx="4" fill="#C45A33"/>
-        <rect x="120" y="80" width="30" height="30" rx="4" fill="#F1875E"/>
+      <rect width="600" height="600" fill="#9A3412"/>
+      <!-- Terracotta tile floor grid -->
+      <g stroke="#7C2D12" stroke-width="2">
+        <line x1="0" y1="280" x2="600" y2="280"/>
+        <line x1="0" y1="360" x2="600" y2="360"/>
+        <line x1="0" y1="440" x2="600" y2="440"/>
+        <line x1="0" y1="520" x2="600" y2="520"/>
+        <line x1="120" y1="280" x2="120" y2="600"/>
+        <line x1="240" y1="280" x2="240" y2="600"/>
+        <line x1="360" y1="280" x2="360" y2="600"/>
+        <line x1="480" y1="280" x2="480" y2="600"/>
       </g>
+      <!-- Retro TV set -->
+      <rect x="230" y="180" width="140" height="110" rx="14" fill="#292524"/>
+      <rect x="245" y="195" width="85" height="80" rx="8" fill="#F5F5F4"/>
+      <circle cx="348" cy="215" r="8" fill="#D6D3D1"/>
+      <circle cx="348" cy="240" r="8" fill="#D6D3D1"/>
+      <text x="50" y="90" fill="#FFEDD5" font-family="'Bricolage Grotesque', sans-serif" font-size="34" font-weight="900">CHANNEL AFTER MIDNIGHT</text>
+      <text x="50" y="125" fill="#FDBA74" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Static Season</text>
+    </svg>
+  `),
 
-      <!-- Stamped Bold Typography -->
-      <text x="300" y="450" text-anchor="middle" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="40" font-weight="900" letter-spacing="1">GOLDEN ERA BREAKS</text>
-      <text x="300" y="490" text-anchor="middle" fill="#F1875E" font-family="'Bricolage Grotesque', sans-serif" font-size="20" font-weight="700" letter-spacing="3">CRATE DIGGERS ANONYMOUS • 1994</text>
-      <text x="300" y="520" text-anchor="middle" fill="#C59B88" font-family="'Instrument Sans', sans-serif" font-size="13" letter-spacing="4">RAW VINYL SAMPLES &amp; BOOM BAP DRUMS</text>
+  // Reference Image 3: Green Signal Ghost
+  signalGhost: svgToDataUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+      <rect width="600" height="600" fill="#064E3B"/>
+      <path d="M0,0 L600,0 L420,380 L180,380 Z" fill="#047857"/>
+      <rect x="180" y="240" width="240" height="360" fill="#10B981"/>
+      <!-- Grid corridor lines -->
+      <line x1="0" y1="0" x2="180" y2="240" stroke="#A7F3D0" stroke-width="2" opacity="0.4"/>
+      <line x1="600" y1="0" x2="420" y2="240" stroke="#A7F3D0" stroke-width="2" opacity="0.4"/>
+      <text x="50" y="90" fill="#ECFDF5" font-family="'Bricolage Grotesque', sans-serif" font-size="40" font-weight="900">SIGNAL GHOST</text>
+      <text x="50" y="125" fill="#A7F3D0" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Floor Eleven</text>
+    </svg>
+  `),
+
+  // Reference Image 3: Head Down Season (Black & White Moody)
+  headDownSeason: svgToDataUri(`
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+      <rect width="600" height="600" fill="#18181B"/>
+      <circle cx="300" cy="300" r="220" fill="#27272A"/>
+      <circle cx="300" cy="300" r="160" fill="#3F3F46"/>
+      <!-- Silhouette -->
+      <path d="M220,450 C220,340 260,260 300,260 C340,260 380,340 380,450 Z" fill="#E4E4E7"/>
+      <circle cx="300" cy="220" r="45" fill="#F4F4F5"/>
+      <text x="50" y="90" fill="#FFFFFF" font-family="'Bricolage Grotesque', sans-serif" font-size="38" font-weight="900">HEAD DOWN SEASON</text>
+      <text x="50" y="125" fill="#A1A1AA" font-family="'Instrument Sans', sans-serif" font-size="18" font-weight="600">Benji &amp; the Silhouettes</text>
     </svg>
   `)
 };

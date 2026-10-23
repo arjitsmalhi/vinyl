@@ -18,6 +18,7 @@ export const App: React.FC = () => {
     isPlaying,
     togglePlay,
     initialize,
+    roomTheme,
     setSpotifyConnected
   } = usePlayerStore();
 
@@ -55,12 +56,12 @@ export const App: React.FC = () => {
   const currentTrack = currentCollection?.tracks[currentTrackIndex];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0C0E] text-[var(--sleeve)] relative">
+    <div className={`min-h-screen flex flex-col relative transition-all duration-700 theme-${roomTheme}`}>
       {/* Top Header */}
       <Header onOpenSignIn={() => setIsSignInOpen(true)} />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center bg-[#0A0C0E]">
+      <main className="flex-1 flex flex-col items-center">
         {viewMode === 'crate' ? (
           <CrateView />
         ) : (

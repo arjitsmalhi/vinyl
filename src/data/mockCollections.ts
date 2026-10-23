@@ -2,306 +2,238 @@ import { Collection } from '../types';
 import { ALBUM_COVERS } from '../utils/albumArtworks';
 
 export const MOCK_COLLECTIONS: Collection[] = [
+  // Reference Image 1: Law of Attraction
   {
-    id: 'col-1',
-    title: 'Kind of Blue Sessions',
-    artist: 'Miles Davis & John Coltrane',
+    id: 'col-ref-1',
+    title: 'Law of Attraction',
+    artist: 'She Her Hers',
     type: 'album',
-    year: 1959,
-    coverUrl: ALBUM_COVERS.kindOfBlue,
-    dominantColor: '#3A6890',
+    year: 2022,
+    coverUrl: ALBUM_COVERS.lawOfAttraction,
+    dominantColor: '#28B8A5',
+    spineColor: '#1A7A6E',
     trackCount: 5,
-    description: 'Columbia Records mono master. Iconic modal jazz recorded at the 30th Street Studio, New York.',
+    description: 'Dream pop & indie shimmer recorded with crystalline guitars and warm analog synthesizer pads.',
     tracks: [
       {
-        id: 'track-1-1',
-        title: 'So What (Modal Studio Take)',
-        artist: 'Miles Davis',
-        album: 'Kind of Blue Sessions',
-        durationMs: 204000,
-        trackNumber: 1,
-        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
-      },
-      {
-        id: 'track-1-2',
-        title: 'Freddie Freeloader (Platter Mix)',
-        artist: 'Miles Davis, Wynton Kelly',
-        album: 'Kind of Blue Sessions',
-        durationMs: 232000,
-        trackNumber: 2,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      },
-      {
-        id: 'track-1-3',
-        title: 'Blue in Green (Night Echoes)',
-        artist: 'Miles Davis, Bill Evans',
-        album: 'Kind of Blue Sessions',
-        durationMs: 198000,
-        trackNumber: 3,
-        audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
-      {
-        id: 'track-1-4',
-        title: 'All Blues (6/8 Rhythmic Cut)',
-        artist: 'Miles Davis',
-        album: 'Kind of Blue Sessions',
-        durationMs: 260000,
-        trackNumber: 4,
-        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
-      },
-      {
-        id: 'track-1-5',
-        title: 'Flamenco Sketches (Alternate Groove)',
-        artist: 'Miles Davis, Cannonball Adderley',
-        album: 'Kind of Blue Sessions',
+        id: 'track-ref-1-1',
+        title: 'Law of Attraction',
+        artist: 'She Her Hers',
+        album: 'Law of Attraction',
         durationMs: 215000,
-        trackNumber: 5,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      }
-    ]
-  },
-  {
-    id: 'col-2',
-    title: 'Midnight Tokyo Lo-Fi',
-    artist: 'Haruka & The Tape Collective',
-    type: 'playlist',
-    year: 2024,
-    coverUrl: ALBUM_COVERS.tokyoLofi,
-    dominantColor: '#C84858',
-    trackCount: 4,
-    description: 'Analog 4-track cassette recordings pressed onto heavyweight 180g virgin vinyl in Shibuya.',
-    tracks: [
-      {
-        id: 'track-2-1',
-        title: 'Shibuya Rain (SP-404 Rhodes)',
-        artist: 'Haruka',
-        album: 'Midnight Tokyo Lo-Fi',
-        durationMs: 175000,
         trackNumber: 1,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      },
-      {
-        id: 'track-2-2',
-        title: 'Akihabara Neon Drift',
-        artist: 'Tape Collective',
-        album: 'Midnight Tokyo Lo-Fi',
-        durationMs: 192000,
-        trackNumber: 2,
         audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
       },
       {
-        id: 'track-2-3',
-        title: 'Late Train to Shinjuku',
-        artist: 'Haruka, Kenji',
-        album: 'Midnight Tokyo Lo-Fi',
-        durationMs: 210000,
+        id: 'track-ref-1-2',
+        title: 'Clear Water Pool',
+        artist: 'She Her Hers',
+        album: 'Law of Attraction',
+        durationMs: 198000,
+        trackNumber: 2,
+        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
+      },
+      {
+        id: 'track-ref-1-3',
+        title: 'Sunlight Drift',
+        artist: 'She Her Hers',
+        album: 'Law of Attraction',
+        durationMs: 234000,
         trackNumber: 3,
         audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
-      {
-        id: 'track-2-4',
-        title: 'Rooftop Dawn & Warm Tea',
-        artist: 'The Tape Collective',
-        album: 'Midnight Tokyo Lo-Fi',
-        durationMs: 168000,
-        trackNumber: 4,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
       }
     ]
   },
+
+  // Reference Image 2: Chulo pt.2
   {
-    id: 'col-3',
-    title: 'Motown Soul & Dusty Brass',
-    artist: 'Detroit Rhythm Section',
+    id: 'col-ref-2',
+    title: 'Chulo pt.2',
+    artist: 'Bad Gyal, Tokischa, Young Miko',
     type: 'album',
-    year: 1968,
-    coverUrl: ALBUM_COVERS.motownSoul,
-    dominantColor: '#E28738',
+    year: 2023,
+    coverUrl: ALBUM_COVERS.chuloPt2,
+    dominantColor: '#E11D48',
+    spineColor: '#9F1239',
     trackCount: 4,
-    description: 'Warm tape saturation, upright bass lines, and crackling horn section stabs.',
+    description: 'Hypnotic reggaeton rhythm, deep sub-bass, and sultry Latin trap hooks on vinyl cut.',
     tracks: [
       {
-        id: 'track-3-1',
-        title: 'Grand River Ave Shuffle',
-        artist: 'Detroit Rhythm Section',
-        album: 'Motown Soul & Dusty Brass',
-        durationMs: 195000,
-        trackNumber: 1,
-        audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
-      {
-        id: 'track-3-2',
-        title: 'Sweet Cadillac Cruisin’',
-        artist: 'Detroit Rhythm Section',
-        album: 'Motown Soul & Dusty Brass',
-        durationMs: 182000,
-        trackNumber: 2,
-        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
-      },
-      {
-        id: 'track-3-3',
-        title: 'Horns Over Belle Isle',
-        artist: 'Detroit Horn Ensemble',
-        album: 'Motown Soul & Dusty Brass',
+        id: 'track-ref-2-1',
+        title: 'Chulo pt.2',
+        artist: 'Bad Gyal, Tokischa, Young Miko',
+        album: 'Chulo pt.2',
         durationMs: 220000,
-        trackNumber: 3,
+        trackNumber: 1,
         audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
       },
       {
-        id: 'track-3-4',
-        title: 'Last Call at the Flame Show Bar',
-        artist: 'Detroit Rhythm Section',
-        album: 'Motown Soul & Dusty Brass',
-        durationMs: 178000,
-        trackNumber: 4,
+        id: 'track-ref-2-2',
+        title: 'Fiebre Nocturna',
+        artist: 'Bad Gyal',
+        album: 'Chulo pt.2',
+        durationMs: 185000,
+        trackNumber: 2,
         audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
       }
     ]
   },
+
+  // Reference Image 3: See You Again
   {
-    id: 'col-4',
-    title: 'Vintage Bossa Nova 1964',
-    artist: 'Astrud & Rio Trio',
+    id: 'col-ref-3',
+    title: 'See You Again',
+    artist: 'Tyler, The Creator feat. Kali Uchis',
     type: 'album',
-    year: 1964,
-    coverUrl: ALBUM_COVERS.bossaNova,
-    dominantColor: '#2D5A46',
+    year: 2017,
+    coverUrl: ALBUM_COVERS.seeYouAgain,
+    dominantColor: '#F59E0B',
+    spineColor: '#D97706',
     trackCount: 4,
-    description: 'Nylon acoustic guitar, brushed snare patterns, and soft Portuguese whispers.',
+    description: 'Lush orchestral brass, whimsical strings, and honey-glazed hip-hop groove.',
     tracks: [
       {
-        id: 'track-4-1',
-        title: 'Ipanema Breeze (Takes 1 & 2)',
-        artist: 'Astrud & Rio Trio',
-        album: 'Vintage Bossa Nova 1964',
-        durationMs: 189000,
+        id: 'track-ref-3-1',
+        title: 'See You Again (feat. Kali Uchis)',
+        artist: 'Tyler, The Creator',
+        album: 'See You Again',
+        durationMs: 180000,
         trackNumber: 1,
         audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
       },
       {
-        id: 'track-4-2',
-        title: 'Corcovado Sunset Acoustic',
-        artist: 'Rio Trio',
-        album: 'Vintage Bossa Nova 1964',
+        id: 'track-ref-3-2',
+        title: 'Glitter Glow',
+        artist: 'Tyler, The Creator',
+        album: 'See You Again',
         durationMs: 205000,
         trackNumber: 2,
         audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      },
-      {
-        id: 'track-4-3',
-        title: 'Desafinado Warm Reverie',
-        artist: 'Astrud & Rio Trio',
-        album: 'Vintage Bossa Nova 1964',
-        durationMs: 175000,
-        trackNumber: 3,
-        audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
-      {
-        id: 'track-4-4',
-        title: 'Wave (Acoustic Platter)',
-        artist: 'Rio Trio',
-        album: 'Vintage Bossa Nova 1964',
-        durationMs: 210000,
-        trackNumber: 4,
-        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
       }
     ]
   },
+
+  // Reference Image 3: Projector Monster Blues
   {
-    id: 'col-5',
-    title: 'Blue Note Echoes',
-    artist: 'The 33⅓ Hard Bop Quintet',
+    id: 'col-ref-4',
+    title: 'Projector Monster Blues',
+    artist: 'Loft Light Club',
     type: 'album',
-    year: 1961,
-    coverUrl: ALBUM_COVERS.blueNote,
-    dominantColor: '#1C385C',
+    year: 2021,
+    coverUrl: ALBUM_COVERS.projectorBlues,
+    dominantColor: '#EC4899',
+    spineColor: '#DB2777',
     trackCount: 4,
-    description: 'Reid Miles inspired typography, Francis Wolff photography, deep room reverb.',
+    description: 'Bedroom pop and nostalgic VHS aesthetics with warm vintage spring reverb.',
     tracks: [
       {
-        id: 'track-5-1',
-        title: 'Van Gelder Studio Reverie',
-        artist: 'The 33⅓ Hard Bop Quintet',
-        album: 'Blue Note Echoes',
-        durationMs: 224000,
+        id: 'track-ref-4-1',
+        title: 'Projector Monster Blues',
+        artist: 'Loft Light Club',
+        album: 'Projector Monster Blues',
+        durationMs: 195000,
         trackNumber: 1,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      },
-      {
-        id: 'track-5-2',
-        title: 'Hackensack Blue Walk',
-        artist: 'The 33⅓ Hard Bop Quintet',
-        album: 'Blue Note Echoes',
-        durationMs: 190000,
-        trackNumber: 2,
-        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
-      },
-      {
-        id: 'track-5-3',
-        title: 'Autumn in Englewood Cliffs',
-        artist: 'The 33⅓ Hard Bop Quintet',
-        album: 'Blue Note Echoes',
-        durationMs: 245000,
-        trackNumber: 3,
         audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
+      }
+    ]
+  },
+
+  // Reference Image 3: Peel Slowly
+  {
+    id: 'col-ref-5',
+    title: 'Peel Slowly',
+    artist: 'Crush & Pulp',
+    type: 'album',
+    year: 2020,
+    coverUrl: ALBUM_COVERS.peelSlowly,
+    dominantColor: '#EAB308',
+    spineColor: '#CA8A04',
+    trackCount: 4,
+    description: 'Sunny indie pop with bright acoustic strumming and infectious citrus horns.',
+    tracks: [
       {
-        id: 'track-5-4',
-        title: 'Midnight Cantaloupe',
-        artist: 'The 33⅓ Hard Bop Quintet',
-        album: 'Blue Note Echoes',
-        durationMs: 201000,
-        trackNumber: 4,
+        id: 'track-ref-5-1',
+        title: 'Peel Slowly',
+        artist: 'Crush & Pulp',
+        album: 'Peel Slowly',
+        durationMs: 172000,
+        trackNumber: 1,
+        audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
+      }
+    ]
+  },
+
+  // Reference Image 3: Channel After Midnight
+  {
+    id: 'col-ref-6',
+    title: 'Channel After Midnight',
+    artist: 'Static Season',
+    type: 'album',
+    year: 2019,
+    coverUrl: ALBUM_COVERS.channelAfterMidnight,
+    dominantColor: '#C2410C',
+    spineColor: '#9A3412',
+    trackCount: 4,
+    description: 'Late night warm broadcast frequencies and analog tape saturation beats.',
+    tracks: [
+      {
+        id: 'track-ref-6-1',
+        title: 'Channel After Midnight',
+        artist: 'Static Season',
+        album: 'Channel After Midnight',
+        durationMs: 210000,
+        trackNumber: 1,
         audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
       }
     ]
   },
+
+  // Reference Image 3: Signal Ghost
   {
-    id: 'col-6',
-    title: 'Golden Era Hip-Hop Breaks',
-    artist: 'Crate Diggers Anonymous',
-    type: 'playlist',
-    year: 1994,
-    coverUrl: ALBUM_COVERS.goldenHipHop,
-    dominantColor: '#C45A33',
-    trackCount: 4,
-    description: 'Strictly vinyl samples: punchy acoustic drum breaks, chopped soul vocals, MPC3000 swing.',
+    id: 'col-ref-7',
+    title: 'Signal Ghost',
+    artist: 'Floor Eleven',
+    type: 'album',
+    year: 2023,
+    coverUrl: ALBUM_COVERS.signalGhost,
+    dominantColor: '#10B981',
+    spineColor: '#059669',
+    trackCount: 3,
+    description: 'Architectural minimalism, deep sub-bass pulses, and echoing synthesizer leads.',
     tracks: [
       {
-        id: 'track-6-1',
-        title: 'The Amen Chop & Filter',
-        artist: 'Crate Diggers Anonymous',
-        album: 'Golden Era Hip-Hop Breaks',
-        durationMs: 165000,
+        id: 'track-ref-7-1',
+        title: 'Signal Ghost',
+        artist: 'Floor Eleven',
+        album: 'Signal Ghost',
+        durationMs: 228000,
         trackNumber: 1,
         audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
-      },
+      }
+    ]
+  },
+
+  // Reference Image 3: Head Down Season
+  {
+    id: 'col-ref-8',
+    title: 'Head Down Season',
+    artist: 'Benji & the Silhouettes',
+    type: 'album',
+    year: 2018,
+    coverUrl: ALBUM_COVERS.headDownSeason,
+    dominantColor: '#71717A',
+    spineColor: '#52525B',
+    trackCount: 4,
+    description: 'Soulful acoustic songwriting and intimate close-mic vocal performances.',
+    tracks: [
       {
-        id: 'track-6-2',
-        title: 'Queensbridge Dusty Snare',
-        artist: 'Crate Diggers Anonymous',
-        album: 'Golden Era Hip-Hop Breaks',
-        durationMs: 180000,
-        trackNumber: 2,
+        id: 'track-ref-8-1',
+        title: 'Head Down Season',
+        artist: 'Benji & the Silhouettes',
+        album: 'Head Down Season',
+        durationMs: 240000,
+        trackNumber: 1,
         audioUrl: 'https://cdn.freesound.org/previews/612/612604_5674468-lq.mp3'
-      },
-      {
-        id: 'track-6-3',
-        title: 'Subway Graffiti Boom Bap',
-        artist: 'Crate Diggers Anonymous',
-        album: 'Golden Era Hip-Hop Breaks',
-        durationMs: 195000,
-        trackNumber: 3,
-        audioUrl: 'https://cdn.freesound.org/previews/648/648588_11861866-lq.mp3'
-      },
-      {
-        id: 'track-6-4',
-        title: 'Bronx Rooftop Sunset Jam',
-        artist: 'Crate Diggers Anonymous',
-        album: 'Golden Era Hip-Hop Breaks',
-        durationMs: 172000,
-        trackNumber: 4,
-        audioUrl: 'https://cdn.freesound.org/previews/557/557815_11861866-lq.mp3'
       }
     ]
   }

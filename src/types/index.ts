@@ -4,9 +4,9 @@ export interface Track {
   artist: string;
   album: string;
   durationMs: number;
-  audioUrl?: string; // Preview or demo audio stream
+  audioUrl?: string;
   trackNumber: number;
-  uri?: string; // Spotify URI
+  uri?: string;
 }
 
 export interface Collection {
@@ -16,12 +16,16 @@ export interface Collection {
   type: 'playlist' | 'album';
   coverUrl: string;
   dominantColor: string;
+  spineColor?: string;
   year?: number;
   trackCount: number;
   tracks: Track[];
   description?: string;
   uri?: string;
 }
+
+export type RoomTheme = 'dynamic' | 'dark' | 'amber' | 'ivory' | 'forest' | 'midnight';
+export type CrateLayout = 'stack' | 'grid';
 
 export interface PlayerState {
   currentCollection: Collection | null;
@@ -37,6 +41,8 @@ export interface PlayerState {
   crackleVolume: number;
   isTonearmDown: boolean;
   viewMode: 'crate' | 'player';
+  crateLayout: CrateLayout;
+  roomTheme: RoomTheme;
   searchQuery: string;
   filterType: 'all' | 'playlist' | 'album';
   provider: 'demo' | 'spotify' | 'apple';
