@@ -99,13 +99,27 @@ export const App: React.FC = () => {
 
             {/* Track List (Cleanly flows below without overlapping footer) */}
             {showTrackList && (
-              <div className="w-full animate-fadeIn">
+              <div className="w-full mt-6 animate-fadeIn">
                 <TrackList />
               </div>
             )}
           </div>
         )}
       </main>
+
+      {/* Semantic Footer ensuring clean layout boundaries and zero overlap */}
+      <footer className="w-full mt-auto py-6 px-4 sm:px-8 border-t border-[#181F26] bg-[#070A0D] text-xs text-[var(--text-faint)] relative z-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex items-center gap-2 text-[var(--sleeve)] font-display font-medium text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brass)]" />
+            <span>Spindle Vinyl Hi-Fi</span>
+            <span className="text-[var(--text-faint)] font-normal hidden sm:inline">• 33⅓ RPM Physics</span>
+          </div>
+          <p className="text-[11px] text-[var(--text-muted)]">
+            Acoustic vinyl playback, tactile crate browsing, and full-bleed picture disc presentation.
+          </p>
+        </div>
+      </footer>
 
       {/* Floating Mini Player ONLY if in Crate view */}
       {viewMode === 'crate' && currentCollection && (

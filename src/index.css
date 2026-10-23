@@ -234,23 +234,53 @@ h1, h2, h3, h4, .font-display {
   pointer-events: none;
 }
 
-/* Center vinyl label (Expanded to cover the centerpiece of vinyl as in Reference Image 2) */
+/* Center vinyl label (Expanded to cover the WHOLE vinyl disc as a Picture Disc LP) */
 .vinyl-label {
   position: relative;
-  width: 58%;
-  height: 58%;
+  width: 93%;
+  height: 93%;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 
-    0 0 0 3px #050608,
-    0 0 20px rgba(0, 0, 0, 0.85),
-    inset 0 0 14px rgba(0, 0, 0, 0.6);
+    0 0 0 2px #050608,
+    0 0 24px rgba(0, 0, 0, 0.9),
+    inset 0 0 25px rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #050608;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: border-color 0.6s ease;
+  cursor: pointer;
+}
+
+/* Picture disc vinyl microgroove and specular sheen overlay on top of cover art */
+.vinyl-label::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: 
+    conic-gradient(
+      from 35deg,
+      rgba(255, 255, 255, 0.17) 0deg,
+      transparent 35deg,
+      rgba(255, 255, 255, 0.08) 80deg,
+      transparent 115deg,
+      rgba(255, 255, 255, 0.17) 180deg,
+      transparent 215deg,
+      rgba(255, 255, 255, 0.08) 260deg,
+      transparent 305deg,
+      rgba(255, 255, 255, 0.17) 360deg
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      transparent 0px,
+      rgba(0, 0, 0, 0.09) 1.5px,
+      transparent 3px
+    );
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.75);
 }
 
 .vinyl-label img {
@@ -258,6 +288,7 @@ h1, h2, h3, h4, .font-display {
   height: 100%;
   object-fit: cover;
   display: block;
+  user-select: none;
 }
 
 .vinyl-spindle-hole {
@@ -824,9 +855,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .crate-stack-card {
   position: relative;
   width: 100%;
-  max-width: 500px;
-  height: 110px;
-  margin-top: -42px;
+  max-width: 520px;
+  height: 120px;
+  margin-top: -46px;
   transform-style: preserve-3d;
   cursor: pointer;
   will-change: transform;
@@ -836,36 +867,40 @@ input[type="range"]::-webkit-slider-thumb:hover {
   margin-top: 0;
 }
 
-/* Card face with centered album art and face typography */
+/* Card face with centered album art and centered face typography */
 .crate-stack-face-modern {
   position: relative;
   width: 100%;
-  height: 160px;
-  border-radius: 12px;
+  min-height: 195px;
+  border-radius: 16px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.88);
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+  backdrop-filter: blur(8px);
 }
 
 .crate-stack-face-modern:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.95);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.98);
 }
 
-/* Centered Artwork Container */
+/* Centered Artwork Container directly on the face */
 .crate-centered-art {
-  width: 110px;
-  height: 110px;
-  border-radius: 8px;
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   flex-shrink: 0;
+  margin-bottom: 8px;
 }
 
 .crate-centered-art img {

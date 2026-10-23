@@ -140,13 +140,13 @@ export const CrateView: React.FC = () => {
 
             if (hoveredIdx !== null) {
               if (idx < hoveredIdx) {
-                translateY = -48; // Pushed up smoothly
+                translateY = -85; // Pushed up generously to reveal hovered record
               } else if (idx === hoveredIdx) {
                 translateY = 0;
-                translateZ = 55; // Lifts forward toward viewer
-                scale = 1.05;
+                translateZ = 75; // Lifts forward toward viewer
+                scale = 1.08;
               } else {
-                translateY = 68; // Pushed down smoothly
+                translateY = 110; // Pushed down generously to eliminate overlap
               }
             }
 
@@ -156,61 +156,45 @@ export const CrateView: React.FC = () => {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 onClick={() => selectCollection(col, true)}
-                className="crate-stack-card"
+                className="crate-stack-card group"
                 style={{
-                  transform: `rotateX(30deg) translateY(${translateY}px) translateZ(${translateZ}px) scale(${scale})`,
+                  transform: `rotateX(28deg) translateY(${translateY}px) translateZ(${translateZ}px) scale(${scale})`,
                   zIndex: isHovered ? 99 : filteredCollections.length - idx,
-                  transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease'
+                  transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease'
                 }}
               >
-                {/* Modern Card Face with Rich Cover Art Gradient */}
+                {/* Modern Card Face with Centered Art & Face Typography (No Side Spines) */}
                 <div
                   className="crate-stack-face-modern"
                   style={{
-                    background: `linear-gradient(135deg, ${col.dominantColor}55 0%, #101419 65%, #080A0D 100%)`,
+                    background: `radial-gradient(circle at 50% 32%, ${col.dominantColor}55 0%, ${col.dominantColor}18 55%, #0B0E13 100%), linear-gradient(180deg, rgba(20, 26, 34, 0.95) 0%, #07090C 100%)`,
                     borderColor: isHovered ? col.dominantColor : 'rgba(255, 255, 255, 0.14)',
                     boxShadow: isHovered
-                      ? `0 24px 55px rgba(0, 0, 0, 0.95), 0 0 30px ${col.dominantColor}44`
-                      : '0 14px 30px rgba(0, 0, 0, 0.85)'
+                      ? `0 30px 65px rgba(0, 0, 0, 0.98), 0 0 35px ${col.dominantColor}55`
+                      : '0 16px 36px rgba(0, 0, 0, 0.88)'
                   }}
                 >
-                  {/* Left: Metadata & Play Prompt (Centered on Face, NOT on Side) */}
-                  <div className="flex-1 pr-4 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span
-                        className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                        style={{
-                          backgroundColor: `${col.dominantColor}33`,
-                          color: '#FFFFFF',
-                          border: `1px solid ${col.dominantColor}66`
-                        }}
-                      >
-                        {col.year || col.type}
+                  {/* Top Status & Year Pill */}
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <span
+                      className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                      style={{
+                        backgroundColor: `${col.dominantColor}33`,
+                        color: '#FFFFFF',
+                        border: `1px solid ${col.dominantColor}66`
+                      }}
+                    >
+                      {col.year || col.type}
+                    </span>
+                    {isCurrentlyActive && (
+                      <span className="text-[10px] font-bold uppercase text-[var(--brass)] flex items-center gap-1 bg-[#10171F] px-2 py-0.5 rounded-full border border-[var(--brass)]/40">
+                        <span className={`w-1.5 h-1.5 rounded-full bg-[var(--brass)] ${isPlaying ? 'animate-ping' : ''}`} />
+                        {isPlaying ? 'Now Spinning' : 'Loaded'}
                       </span>
-                      {isCurrentlyActive && (
-                        <span className="text-[10px] font-bold uppercase text-[var(--brass)] flex items-center gap-1">
-                          <span className={`w-1.5 h-1.5 rounded-full bg-[var(--brass)] ${isPlaying ? 'animate-ping' : ''}`} />
-                          {isPlaying ? 'Now Spinning' : 'Loaded'}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title on the face */}
-                    <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight truncate drop-shadow-md">
-                      {col.title}
-                    </h3>
-                    <p className="text-xs text-white/80 font-medium truncate mt-0.5">
-                      {col.artist}
-                    </p>
-
-                    <div className="flex items-center gap-2 mt-2 text-[11px] text-white/60">
-                      <span>{col.trackCount} tracks</span>
-                      <span>•</span>
-                      <span className="capitalize">{col.type}</span>
-                    </div>
+                    )}
                   </div>
 
-                  {/* Right: Centered Cover Artwork on Face */}
+                  {/* Centered Artwork Container directly in the center of the face */}
                   <div className="crate-centered-art relative group-hover:scale-105 transition-transform duration-300">
                     <img
                       src={col.coverUrl}
@@ -221,6 +205,21 @@ export const CrateView: React.FC = () => {
                       <div className="w-8 h-8 rounded-full bg-[var(--brass)] text-black flex items-center justify-center shadow-lg">
                         <Play className="w-4 h-4 ml-0.5 fill-current" />
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Centered Typography directly on the face */}
+                  <div className="w-full px-4 flex flex-col items-center">
+                    <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight truncate max-w-full drop-shadow-md">
+                      {col.title}
+                    </h3>
+                    <p className="text-xs text-white/80 font-medium truncate max-w-full mt-0.5">
+                      {col.artist}
+                    </p>
+                    <div className="flex items-center gap-2 mt-1.5 text-[10px] text-white/60">
+                      <span>{col.trackCount} tracks</span>
+                      <span>•</span>
+                      <span className="capitalize">{col.type}</span>
                     </div>
                   </div>
                 </div>

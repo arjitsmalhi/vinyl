@@ -176,8 +176,8 @@ export const Turntable: React.FC = () => {
             {/* 3D Turntable Platter & Felt Slipmat (Entire vinyl clickable to play/pause) */}
             <div
               onClick={togglePlay}
-              className="turntable-platter-3d relative cursor-pointer group"
-              title="Click anywhere on vinyl record to Play/Pause"
+              className="turntable-platter-3d relative cursor-pointer group select-none"
+              title={`Click anywhere on vinyl to ${isPlaying ? 'Pause' : 'Play'}`}
             >
               <AnimatePresence mode="wait">
                 {!isDiscSwapping && currentCollection && (
@@ -200,17 +200,27 @@ export const Turntable: React.FC = () => {
                       scale: 0.94,
                       transition: { duration: 0.35, ease: 'easeIn' }
                     }}
-                    className={`vinyl-disc ${isPlaying ? 'spinning' : 'spinning-paused'}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      togglePlay();
+                    }}
+                    className={`vinyl-disc ${isPlaying ? 'spinning' : 'spinning-paused'} cursor-pointer`}
                   >
-                    {/* Dynamic Center Label (Large 58% cover art matching Reference Image 2) */}
-                    <div className="vinyl-label">
+                    {/* Picture Disc Cover Art (Covers 93% of the whole vinyl disc) */}
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        togglePlay();
+                      }}
+                      className="vinyl-label cursor-pointer"
+                    >
                       <img
                         src={currentCollection.coverUrl}
                         alt={currentCollection.title}
                         draggable={false}
                       />
-                      {/* Spindle hole */}
-                      <div className="vinyl-spindle-hole" />
+                      {/* Center Spindle hole */}
+                      <div className="vinyl-spindle-hole pointer-events-none" />
                     </div>
                   </motion.div>
                 )}
